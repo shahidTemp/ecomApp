@@ -2,7 +2,7 @@ import axios from "axios";
 import { getData } from "@/lib/localStorage";
 
 const apiClient = axios.create({
-    baseURL: "http://localhost:5000/app",
+    baseURL: "https://ecomapi.appbyte.net/app/",
     withCredentials: true,
     headers: {
         "X-Client-Type": "mobile",
