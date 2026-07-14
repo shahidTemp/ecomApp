@@ -1,7 +1,16 @@
-import { useEffect, useRef, useState } from "react";
-import { Animated, Pressable, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Pressable, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import Animated, {
+    Easing,
+    interpolate,
+    runOnJS,
+    useAnimatedStyle,
+    useSharedValue,
+    withSequence,
+    withTiming,
+} from "react-native-reanimated";
 
 const SUGGESTIONS = [
     "Search for Groceries",
@@ -11,85 +20,62 @@ const SUGGESTIONS = [
 
 const CYCLE_INTERVAL = 2500;
 const TRANSITION_DURATION = 220;
+const EASING = Easing.bezier(0.4, 0, 0.2, 1);
 
 export default function SearchTrigger() {
     const router = useRouter();
-    const [suggestionIndex, setSuggestionIndex] = useState(0);
-    const [containerHeight, setContainerHeight] = useState(0);
-    const slideAnim = useRef(new Animated.Value(0)).current;
-    const opacityAnim = useRef(new Animated.Value(1)).current;
+    const [index, setIndex] = useState(0);
+    const [height, setHeight] = useState(0);
+    const progress = useSharedValue(0);
 
     useEffect(() => {
-        if (containerHeight === 0) return;
-
-        const interval = setInterval(() => {
-            Animated.parallel([
-                Animated.timing(slideAnim, {
-                    toValue: -1,
-                    duration: TRANSITION_DURATION,
-                    useNativeDriver: true,
+        if (height === 0) return;
+        const cycle = () => {
+            progress.value = 0;
+            progress.value = withSequence(
+                withTiming(0.5, { duration: TRANSITION_DURATION, easing: EASING }, () => {
+                    runOnJS(setIndex)((prev) => (prev + 1) % SUGGESTIONS.length);
                 }),
-                Animated.timing(opacityAnim, {
-                    toValue: 0,
-                    duration: TRANSITION_DURATION,
-                    useNativeDriver: true,
-                }),
-            ]).start(() => {
-                setSuggestionIndex((prev) => (prev + 1) % SUGGESTIONS.length);
-                slideAnim.setValue(1);
-                opacityAnim.setValue(0);
-
-                Animated.parallel([
-                    Animated.timing(slideAnim, {
-                        toValue: 0,
-                        duration: TRANSITION_DURATION,
-                        useNativeDriver: true,
-                    }),
-                    Animated.timing(opacityAnim, {
-                        toValue: 1,
-                        duration: TRANSITION_DURATION,
-                        useNativeDriver: true,
-                    }),
-                ]).start();
-            });
-        }, CYCLE_INTERVAL);
-
+                withTiming(1, { duration: TRANSITION_DURATION, easing: EASING }),
+            );
+        };
+        const interval = setInterval(cycle, CYCLE_INTERVAL);
         return () => clearInterval(interval);
-    }, [slideAnim, opacityAnim, containerHeight]);
+    }, [height, progress]);
 
-    const handleTriggerPress = () => {
-        router.push("/search");
-    };
+    const animatedStyle = useAnimatedStyle(() => {
+        "worklet";
+        const p = progress.value;
+        const translateY =
+            p < 0.5
+                ? interpolate(p, [0, 0.5], [0, -height], "clamp")
+                : interpolate(p, [0.5, 1], [height, 0], "clamp");
+        const opacity =
+            p < 0.5
+                ? interpolate(p, [0, 0.5], [1, 0], "clamp")
+                : interpolate(p, [0.5, 1], [0, 1], "clamp");
+        return { opacity, transform: [{ translateY }] };
+    }, [height]);
 
-    const handleSearchPress = () => {
+    const handleTriggerPress = () => router.push("/search");
+    const handleSearchPress = () =>
         router.push({
             pathname: "/search",
-            params: { query: SUGGESTIONS[suggestionIndex] },
+            params: { query: SUGGESTIONS[index] },
         });
-    };
 
     return (
         <View
             className="flex-row items-center bg-gray-100 border border-gray-300 rounded-xl px-4 py-3 overflow-hidden"
             accessibilityRole="search"
-            onLayout={(e) => setContainerHeight(e.nativeEvent.layout.height)}
+            onLayout={(e) => setHeight(e.nativeEvent.layout.height)}
         >
             <Pressable onPress={handleTriggerPress} className="flex-1">
                 <Animated.Text
-                    style={{
-                        transform: [
-                            {
-                                translateY: slideAnim.interpolate({
-                                    inputRange: [-1, 0, 1],
-                                    outputRange: [-containerHeight, 0, containerHeight],
-                                }),
-                            },
-                        ],
-                        opacity: opacityAnim,
-                    }}
+                    style={animatedStyle}
                     className="text-gray-500 text-base"
                 >
-                    {SUGGESTIONS[suggestionIndex]}
+                    {SUGGESTIONS[index]}
                 </Animated.Text>
             </Pressable>
 
