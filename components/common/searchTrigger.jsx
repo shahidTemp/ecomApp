@@ -57,9 +57,9 @@ export default function SearchTrigger({ suggestions = DEFAULT_SUGGESTIONS, navig
     const currentQuery = suggestions[displayIndex];
 
     return (
-        <View style={{ borderColor: theme.bgcolor }} className="flex-row items-center border rounded-md pl-4 shadow-sm">
+        <View className="flex-row items-center border border-white bg-white rounded-md pl-4 shadow-sm">
             <Pressable onPress={() => router.push(navigateTo)} className="flex-1 active:opacity-70 py-1">
-                <Animated.Text style={animatedStyle} className="text-gray-400 text-base font-medium" numberOfLines={1}>
+                <Animated.Text style={animatedStyle} className="text-gray-700 text-base font-medium" numberOfLines={1}>
                     Search for {currentQuery}
                 </Animated.Text>
             </Pressable>
