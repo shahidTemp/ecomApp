@@ -25,7 +25,7 @@ export default function NotFoundScreen() {
 
     return (
         <LinearGradient
-            colors={[brandColor, brandColorFaded, "#ffffff"]}
+            colors={[brandColor, `${brandColor}99`, "#ffffff"]}
             locations={[0, 0.4, 1]}
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
