@@ -3,8 +3,13 @@ import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 import { Pressable, Text, View } from "react-native";
 
+import { useTheme } from "@/lib/theme";
+
 export default function NotFoundScreen() {
     const router = useRouter();
+    const { theme } = useTheme();
+    const primaryColor = theme.color;
+    const primaryFaded = `${primaryColor}99`;
     const handleGoBack = () => {
         // Check if we can go back, otherwise go to home
         if (router.canGoBack()) {
@@ -20,7 +25,7 @@ export default function NotFoundScreen() {
 
     return (
         <LinearGradient
-            colors={["#0984e4", "#e0f4ff", "#ffffff"]}
+            colors={[primaryColor, primaryFaded, "#ffffff"]}
             locations={[0, 0.4, 1]}
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
@@ -30,7 +35,7 @@ export default function NotFoundScreen() {
 
             <View className="flex-1 items-center justify-center px-6">
                 <View className="w-full max-w-sm rounded-3xl bg-white/90 px-6 py-10 items-center border border-white">
-                    <Text className="text-[#0984e4] text-6xl font-bold mb-3">404</Text>
+                    <Text style={{ color: primaryColor }} className="text-6xl font-bold mb-3">404</Text>
                     <Text className="text-gray-900 text-2xl font-bold text-center mb-3">
                         Page not found
                     </Text>
@@ -40,7 +45,8 @@ export default function NotFoundScreen() {
 
                     <Pressable
                         onPress={handleGoBack}
-                        className="bg-[#0984e4] px-6 py-4 rounded-2xl w-full"
+                        style={{ backgroundColor: primaryColor }}
+                        className="px-6 py-4 rounded-2xl w-full"
                     >
                         <Text className="text-white text-base font-semibold text-center">
                             Go Back
@@ -49,9 +55,10 @@ export default function NotFoundScreen() {
 
                     <Pressable
                         onPress={handleOpenSitemap}
-                        className="bg-white px-6 py-4 rounded-2xl w-full border border-[#0984e4] mt-3"
+                        style={{ borderColor: primaryColor }}
+                        className="bg-white px-6 py-4 rounded-2xl w-full border mt-3"
                     >
-                        <Text className="text-[#0984e4] text-base font-semibold text-center">
+                        <Text style={{ color: primaryColor }} className="text-base font-semibold text-center">
                             Sitemap
                         </Text>
                     </Pressable>
