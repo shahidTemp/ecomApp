@@ -15,12 +15,12 @@ const TRANSITION_DURATION = 220;
 export default function SearchTrigger() {
     const router = useRouter();
     const [suggestionIndex, setSuggestionIndex] = useState(0);
-    const [containerWidth, setContainerWidth] = useState(0);
+    const [containerHeight, setContainerHeight] = useState(0);
     const slideAnim = useRef(new Animated.Value(0)).current;
     const opacityAnim = useRef(new Animated.Value(1)).current;
 
     useEffect(() => {
-        if (containerWidth === 0) return;
+        if (containerHeight === 0) return;
 
         const interval = setInterval(() => {
             Animated.parallel([
@@ -55,7 +55,7 @@ export default function SearchTrigger() {
         }, CYCLE_INTERVAL);
 
         return () => clearInterval(interval);
-    }, [slideAnim, opacityAnim, containerWidth]);
+    }, [slideAnim, opacityAnim, containerHeight]);
 
     const handleTriggerPress = () => {
         router.push("/search");
@@ -72,16 +72,16 @@ export default function SearchTrigger() {
         <View
             className="flex-row items-center bg-gray-100 border border-gray-300 rounded-xl px-4 py-3 overflow-hidden"
             accessibilityRole="search"
-            onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}
+            onLayout={(e) => setContainerHeight(e.nativeEvent.layout.height)}
         >
             <Pressable onPress={handleTriggerPress} className="flex-1">
                 <Animated.Text
                     style={{
                         transform: [
                             {
-                                translateX: slideAnim.interpolate({
+                                translateY: slideAnim.interpolate({
                                     inputRange: [-1, 0, 1],
-                                    outputRange: [-containerWidth, 0, containerWidth],
+                                    outputRange: [-containerHeight, 0, containerHeight],
                                 }),
                             },
                         ],
