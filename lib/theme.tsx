@@ -5,7 +5,6 @@ import { getApi } from "./api";
 const THEME_STORAGE_KEY = "@app_theme";
 
 export interface Theme {
-    color: string;
     bgcolor: string;
 }
 
@@ -15,8 +14,7 @@ interface ThemeContextValue {
 }
 
 export const DEFAULT_THEME: Theme = {
-    color: "#0984e4",
-    bgcolor: "#ffffff",
+    bgcolor: "#0984e4",
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -40,7 +38,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
                 if (remoteTheme && isMounted) {
                     const nextTheme: Theme = {
-                        color: remoteTheme.color || DEFAULT_THEME.color,
                         bgcolor: remoteTheme.bgcolor || DEFAULT_THEME.bgcolor,
                     };
 

@@ -8,8 +8,8 @@ import { useTheme } from "@/lib/theme";
 export default function NotFoundScreen() {
     const router = useRouter();
     const { theme } = useTheme();
-    const primaryColor = theme.color;
-    const primaryFaded = `${primaryColor}99`;
+    const brandColor = theme.bgcolor;
+    const brandColorFaded = `${brandColor}99`;
     const handleGoBack = () => {
         // Check if we can go back, otherwise go to home
         if (router.canGoBack()) {
@@ -25,7 +25,7 @@ export default function NotFoundScreen() {
 
     return (
         <LinearGradient
-            colors={[primaryColor, primaryFaded, "#ffffff"]}
+            colors={[brandColor, brandColorFaded, "#ffffff"]}
             locations={[0, 0.4, 1]}
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
@@ -35,7 +35,7 @@ export default function NotFoundScreen() {
 
             <View className="flex-1 items-center justify-center px-6">
                 <View className="w-full max-w-sm rounded-3xl bg-white/90 px-6 py-10 items-center border border-white">
-                    <Text style={{ color: primaryColor }} className="text-6xl font-bold mb-3">404</Text>
+                    <Text style={{ color: brandColor }} className="text-6xl font-bold mb-3">404</Text>
                     <Text className="text-gray-900 text-2xl font-bold text-center mb-3">
                         Page not found
                     </Text>
@@ -45,7 +45,7 @@ export default function NotFoundScreen() {
 
                     <Pressable
                         onPress={handleGoBack}
-                        style={{ backgroundColor: primaryColor }}
+                        style={{ backgroundColor: brandColor }}
                         className="px-6 py-4 rounded-2xl w-full"
                     >
                         <Text className="text-white text-base font-semibold text-center">
@@ -55,10 +55,10 @@ export default function NotFoundScreen() {
 
                     <Pressable
                         onPress={handleOpenSitemap}
-                        style={{ borderColor: primaryColor }}
+                        style={{ borderColor: brandColor }}
                         className="bg-white px-6 py-4 rounded-2xl w-full border mt-3"
                     >
-                        <Text style={{ color: primaryColor }} className="text-base font-semibold text-center">
+                        <Text style={{ color: brandColor }} className="text-base font-semibold text-center">
                             Sitemap
                         </Text>
                     </Pressable>
