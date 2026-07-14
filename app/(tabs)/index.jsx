@@ -10,8 +10,8 @@ const Index = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <StatusBar backgroundColor={theme.bgcolor} style="auto" />
-            <View className="px-4 pt-4 gap-4">
+            <StatusBar backgroundColor={theme.bgcolor} style="light" />
+            <View className="px-3 pt-3 gap-4">
                 <SearchTrigger />
                 <Text>index</Text>
             </View>
