@@ -9,7 +9,6 @@ export default function NotFoundScreen() {
     const router = useRouter();
     const { theme } = useTheme();
     const brandColor = theme.bgcolor;
-    const brandColorFaded = `${brandColor}99`;
     const handleGoBack = () => {
         // Check if we can go back, otherwise go to home
         if (router.canGoBack()) {
