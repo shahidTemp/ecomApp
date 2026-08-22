@@ -19,7 +19,7 @@ const Index = () => {
         className="flex-1"
       >
         <StatusBar backgroundColor={theme.bgcolor} style="light" />
-        <View className="px-3 pt-3 gap-4">
+        <View className="px-3 gap-1">
           <SearchTrigger />
           <ModernCarousel />
         </View>
