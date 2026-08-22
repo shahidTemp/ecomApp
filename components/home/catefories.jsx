@@ -38,13 +38,12 @@ const Categories = () => {
 
   return (
     <View>
-      <View style={styles.header}>
-        <Text style={styles.eyebrow}>EXPLORE</Text>
-        <Text style={styles.title}>Shop by category</Text>
-      </View>
-
       {isLoading ? (
-        <ActivityIndicator color={theme.bgcolor} style={styles.loader} />
+        <ActivityIndicator
+          size="large"
+          color={theme.bgcolor}
+          style={styles.loader}
+        />
       ) : categories.length ? (
         <Carousel
           loop={categories.length > 1}
