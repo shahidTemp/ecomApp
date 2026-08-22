@@ -15,7 +15,7 @@ const ModernCarousel = () => {
 
   const carouselWidth = width - 24; // parent px-3 (12px each side)
   const itemGap = 12;
-  const itemWidth = carouselWidth - itemGap;
+  const itemWidth = carouselWidth;
   const carouselHeight = itemWidth * (7 / 20);
 
   return (
@@ -24,6 +24,7 @@ const ModernCarousel = () => {
       autoplay
       data={banners}
       style={{ width: carouselWidth, height: carouselHeight }}
+      itemSize={carouselWidth + itemGap}
       animation={{ type: "timing", duration: 400 }}
       autoplayInterval={3000}
       renderWindowSize={3}
@@ -34,7 +35,7 @@ const ModernCarousel = () => {
           disabled={!item.link}
           style={({ pressed }) => [
             styles.item,
-            { width: itemWidth, height: carouselHeight, marginHorizontal: itemGap / 2 },
+            { width: itemWidth, height: carouselHeight },
             pressed && { opacity: 0.85 },
           ]}
         >
