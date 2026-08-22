@@ -50,7 +50,7 @@ const Categories = () => {
           autoplay={categories.length > 1}
           data={categories}
           style={styles.carousel}
-          itemSize={136}
+          itemSize={70}
           autoplayInterval={2800}
           animation={{ type: "timing", duration: 450 }}
           renderWindowSize={3}
@@ -85,58 +85,40 @@ const Categories = () => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    paddingHorizontal: 8,
-    paddingTop: 12,
-    paddingBottom: 18,
-  },
-  eyebrow: {
-    color: "#64748b",
-    fontSize: 11,
-    fontWeight: "700",
-    letterSpacing: 1.5,
-  },
-  title: {
-    color: "#0f172a",
-    fontSize: 28,
-    fontWeight: "800",
-    marginTop: 4,
-  },
   carousel: {
     width: "100%",
-    height: 174,
-    paddingHorizontal: 8,
+    height: 104,
   },
   loader: {
     marginTop: 48,
   },
   card: {
-    width: 124,
-    height: 164,
-    padding: 8,
-    borderRadius: 18,
+    width: 64,
+    height: 96,
+    padding: 4,
+    borderRadius: 12,
     backgroundColor: "#ffffff",
     shadowColor: "#0f172a",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.07,
+    shadowRadius: 6,
+    elevation: 2,
   },
   pressed: {
     opacity: 0.75,
   },
   image: {
-    width: 108,
-    height: 112,
-    borderRadius: 13,
+    width: 56,
+    height: 54,
+    borderRadius: 9,
     backgroundColor: "#e2e8f0",
   },
   categoryName: {
     color: "#1e293b",
-    fontSize: 14,
+    fontSize: 10,
     fontWeight: "700",
-    lineHeight: 18,
-    marginTop: 9,
+    lineHeight: 12,
+    marginTop: 5,
     textAlign: "center",
   },
   emptyText: {
