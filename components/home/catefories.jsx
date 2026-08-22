@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  useWindowDimensions,
 } from "react-native";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
@@ -15,6 +16,7 @@ import { useTheme } from "@/lib/theme";
 
 const Categories = () => {
   const router = useRouter();
+  const { width } = useWindowDimensions();
   const { theme } = useTheme();
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -49,7 +51,7 @@ const Categories = () => {
           loop={categories.length > 1}
           autoplay={categories.length > 1}
           data={categories}
-          style={styles.carousel}
+          style={{ width: width - 24, height: 104 }}
           itemSize={70}
           autoplayInterval={2800}
           animation={{ type: "timing", duration: 450 }}
@@ -85,10 +87,6 @@ const Categories = () => {
 };
 
 const styles = StyleSheet.create({
-  carousel: {
-    width: "100%",
-    height: 104,
-  },
   loader: {
     marginTop: 48,
   },
