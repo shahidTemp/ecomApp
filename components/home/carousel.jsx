@@ -1,22 +1,23 @@
-import { Dimensions, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, useWindowDimensions } from "react-native";
 import { Carousel } from "react-native-reanimated-carousel";
 import { useRouter } from "expo-router";
 import { useSettings } from "@/lib/theme";
 
-const { width: screenWidth } = Dimensions.get("window");
-
 const ModernCarousel = () => {
   const router = useRouter();
   const { settings } = useSettings();
+  const { width } = useWindowDimensions();
 
   const data = (settings?.assets?.banners ?? []).map(({ img, link }) => ({ img, url: link }));
 
   if (!data.length) return null;
 
+  const carouselWidth = width - 24; // parent px-3 (12px each side)
+
   return (
     <Carousel
       loop
-      style={{ width: screenWidth, height: screenWidth * 0.5 }}
+      style={{ width: carouselWidth, height: carouselWidth * 0.5 }}
       autoplay
       data={data}
       animation={{ type: "timing", duration: 1000 }}
@@ -38,6 +39,7 @@ const ModernCarousel = () => {
 const styles = StyleSheet.create({
   itemContainer: {
     flex: 1,
+    marginHorizontal: 6, // 12px gap between items
     borderRadius: 12,
     overflow: "hidden",
     elevation: 5,
