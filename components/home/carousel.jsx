@@ -1,4 +1,5 @@
-import { Image, StyleSheet, TouchableOpacity, useWindowDimensions } from "react-native";
+import { Pressable, StyleSheet, useWindowDimensions } from "react-native";
+import { Image } from "expo-image";
 import { Carousel } from "react-native-reanimated-carousel";
 import { useRouter } from "expo-router";
 import { useSettings } from "@/lib/theme";
@@ -8,45 +9,45 @@ const ModernCarousel = () => {
   const { settings } = useSettings();
   const { width } = useWindowDimensions();
 
-  const data = (settings?.assets?.banners ?? []).map(({ img, link }) => ({ img, url: link }));
+  const banners = settings?.assets?.banners ?? [];
 
-  if (!data.length) return null;
+  if (!banners.length) return null;
 
   const carouselWidth = width - 24; // parent px-3 (12px each side)
 
   return (
     <Carousel
       loop
-      style={{ width: carouselWidth, height: carouselWidth * 0.5 }}
       autoplay
-      data={data}
+      data={banners}
+      style={{ width: carouselWidth, height: carouselWidth * 0.5 }}
       animation={{ type: "timing", duration: 1000 }}
       autoplayInterval={3000}
+      keyExtractor={(item) => item.img}
       renderItem={({ item }) => (
-        <TouchableOpacity
-          activeOpacity={item.url ? 0.7 : 1}
-          onPress={() => item.url && router.replace(item.url)}
-          style={styles.itemContainer}
-          disabled={!item.url}
+        <Pressable
+          onPress={() => item.link && router.replace(item.link)}
+          disabled={!item.link}
+          style={({ pressed }) => [styles.item, pressed && { opacity: 0.85 }]}
         >
-          <Image source={{ uri: item.img }} style={styles.image} resizeMode="cover" />
-        </TouchableOpacity>
+          <Image
+            source={item.img}
+            style={styles.image}
+            contentFit="cover"
+            cachePolicy="memory-disk"
+            transition={200}
+          />
+        </Pressable>
       )}
     />
   );
 };
 
 const styles = StyleSheet.create({
-  itemContainer: {
+  item: {
     flex: 1,
-    marginHorizontal: 6, // 12px gap between items
     borderRadius: 12,
     overflow: "hidden",
-    elevation: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
   },
   image: {
     width: "100%",
