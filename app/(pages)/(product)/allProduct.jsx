@@ -1,12 +1,17 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useLocalSearchParams } from "expo-router";
 
-const allProduct = () => {
+const AllProduct = () => {
+  const { category } = useLocalSearchParams();
+
   return (
-    <View>
-      <Text>allProduct</Text>
-    </View>
-  )
-}
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text style={{ fontSize: 18, fontWeight: "600" }}>{category}</Text>
+      </View>
+    </SafeAreaView>
+  );
+};
 
-export default allProduct
+export default AllProduct;
