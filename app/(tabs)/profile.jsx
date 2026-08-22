@@ -1,8 +1,11 @@
 import { Link } from 'expo-router'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useTheme } from '@/lib/theme'
 
 const profile = () => {
+    const { theme } = useTheme()
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.container}>
@@ -10,8 +13,8 @@ const profile = () => {
                 <Text style={styles.subtitle}>Tap below to open a temporary route.</Text>
 
                 <Link href="/_sitemap" asChild>
-                    <Pressable style={styles.button}>
-                        <Text style={styles.buttonText}>Go to _sitemap route</Text>
+                    <Pressable style={[styles.button, { backgroundColor: theme.bgcolor }]}>
+                        <Text style={[styles.buttonText, { color: theme.color }]}>Go to _sitemap route</Text>
                     </Pressable>
                 </Link>
             </View>
@@ -40,7 +43,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     button: {
-        backgroundColor: '#2563eb',
         paddingVertical: 12,
         paddingHorizontal: 20,
         borderRadius: 999,
@@ -51,7 +53,6 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     buttonText: {
-        color: '#fff',
         fontSize: 16,
         fontWeight: '600',
     },

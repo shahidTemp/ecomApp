@@ -47,7 +47,7 @@ export default function NotFoundScreen() {
                         style={{ backgroundColor: brandColor }}
                         className="px-6 py-4 rounded-2xl w-full"
                     >
-                        <Text className="text-white text-base font-semibold text-center">
+                        <Text style={{ color: theme.color }} className="text-base font-semibold text-center">
                             Go Back
                         </Text>
                     </Pressable>

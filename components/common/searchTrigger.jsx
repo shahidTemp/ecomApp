@@ -71,7 +71,7 @@ export default function SearchTrigger({ suggestions = DEFAULT_SUGGESTIONS, navig
                 style={{ backgroundColor: theme.bgcolor }}
                 className="ml-3 rounded-md px-4 py-2"
             >
-                <Text className="text-white text-sm font-semibold">Search</Text>
+                <Text style={{ color: theme.color }} className="text-sm font-semibold">Search</Text>
             </Pressable>
         </View>
     );
