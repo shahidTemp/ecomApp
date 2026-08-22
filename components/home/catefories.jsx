@@ -55,7 +55,6 @@ const Categories = () => {
           itemSize={70}
           autoplayInterval={2800}
           animation={{ type: "timing", duration: 450 }}
-          renderWindowSize={3}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <Pressable
