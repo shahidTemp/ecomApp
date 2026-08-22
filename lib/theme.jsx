@@ -21,13 +21,22 @@ export function ThemeProvider({ children }) {
         (async () => {
             try {
                 const cached = await getData(SETTINGS_STORAGE_KEY);
-                if (cached && mounted) setSettings(cached);
+                if (cached) {
+                    if (mounted) {
+                        setSettings(cached);
+                        setIsReady(true);
+                    }
+
+                    const response = await getApi("settings/site");
+                    if (response?.data) await storeData(SETTINGS_STORAGE_KEY, response.data);
+                    return;
+                }
 
                 const response = await getApi("settings/site");
                 if (response?.data && mounted) {
                     setSettings(response.data);
-                    await storeData(SETTINGS_STORAGE_KEY, response.data);
                 }
+                if (response?.data) await storeData(SETTINGS_STORAGE_KEY, response.data);
             } catch (error) {
                 console.error("Failed to load settings:", error);
             } finally {
