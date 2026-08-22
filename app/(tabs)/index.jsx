@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from "expo-linear-gradient";
 import SearchTrigger from '@/components/common/searchTrigger'
+import ModernCarousel from '@/components/home/carousel'
 import { useTheme } from '@/lib/theme'
 
 const Index = () => {
@@ -20,6 +21,7 @@ const Index = () => {
                 <StatusBar backgroundColor={theme.bgcolor} style="light" />
                 <View className="px-3 pt-3 gap-4">
                     <SearchTrigger />
+                    <ModernCarousel />
                     <Text>index</Text>
                 </View>
             </LinearGradient>
