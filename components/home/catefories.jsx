@@ -52,7 +52,7 @@ const Categories = () => {
           autoplay={categories.length > 1}
           data={categories}
           style={{ width: width - 24, height: 104 }}
-          itemSize={70}
+          itemSize={68}
           autoplayInterval={2800}
           animation={{ type: "timing", duration: 450 }}
           keyExtractor={(item) => item._id}
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     width: 64,
     height: 96,
     padding: 4,
-    borderRadius: 12,
+    borderRadius: 8,
     backgroundColor: "#ffffff",
     shadowColor: "#0f172a",
     shadowOffset: { width: 0, height: 2 },
