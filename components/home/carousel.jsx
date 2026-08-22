@@ -14,28 +14,35 @@ const ModernCarousel = () => {
   if (!banners.length) return null;
 
   const carouselWidth = width - 24; // parent px-3 (12px each side)
+  const itemGap = 12;
+  const itemWidth = carouselWidth - itemGap;
+  const carouselHeight = itemWidth * (7 / 20);
 
   return (
     <Carousel
       loop
       autoplay
       data={banners}
-      style={{ width: carouselWidth, height: carouselWidth * (7 / 20) }}
-      animation={{ type: "timing", duration: 1000 }}
+      style={{ width: carouselWidth, height: carouselHeight }}
+      animation={{ type: "timing", duration: 400 }}
       autoplayInterval={3000}
+      renderWindowSize={3}
       keyExtractor={(item) => item.img}
       renderItem={({ item }) => (
         <Pressable
           onPress={() => item.link && router.replace(item.link)}
           disabled={!item.link}
-          style={({ pressed }) => [styles.item, pressed && { opacity: 0.85 }]}
+          style={({ pressed }) => [
+            styles.item,
+            { width: itemWidth, height: carouselHeight, marginHorizontal: itemGap / 2 },
+            pressed && { opacity: 0.85 },
+          ]}
         >
           <Image
             source={item.img}
             style={styles.image}
             contentFit="cover"
             cachePolicy="memory-disk"
-            transition={200}
           />
         </Pressable>
       )}
@@ -45,7 +52,6 @@ const ModernCarousel = () => {
 
 const styles = StyleSheet.create({
   item: {
-    flex: 1,
     borderRadius: 12,
     overflow: "hidden",
   },
