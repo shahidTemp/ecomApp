@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   card: {
     width: 64,
     height: 96,
-    padding: 4,
+    alignItems: "center",
     borderRadius: 8,
     backgroundColor: "#ffffff",
     shadowColor: "#0f172a",
@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e2e8f0",
   },
   categoryName: {
+    width: "100%",
     color: "#1e293b",
     fontSize: 10,
     fontWeight: "500",

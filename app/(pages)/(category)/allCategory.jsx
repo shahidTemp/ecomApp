@@ -1,6 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import Categories from "@/components/home/catefories";
+import Categories from "@/components/home/categories";
 
 const AllCategory = () => (
   <SafeAreaView style={{ flex: 1, backgroundColor: "#f8fafc" }}>

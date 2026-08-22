@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import SearchTrigger from "@/components/common/searchTrigger";
 import ModernCarousel from "@/components/home/carousel";
-import Categories from "@/components/home/catefories";
+import Categories from "@/components/home/categories";
 import { useTheme } from "@/lib/theme";
 
 const Index = () => {
