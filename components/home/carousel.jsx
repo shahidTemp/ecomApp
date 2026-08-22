@@ -6,8 +6,7 @@ import {
   View,
   Image,
 } from "react-native";
-import Carousel from "react-native-reanimated-carousel";
-import { useNavigation } from "@react-navigation/native";
+import { Carousel } from "react-native-reanimated-carousel";
 import { useRouter } from "expo-router";
 
 import cimg1 from "@/assets/images/cimg1.jpg";
@@ -47,7 +46,6 @@ const data = [
 ];
 
 const ModernCarousel = () => {
-  const navigation = useNavigation();
   const router = useRouter();
 
   const handleItemPress = (item) => {
@@ -60,12 +58,11 @@ const ModernCarousel = () => {
     <View style={styles.container}>
       <Carousel
         loop
-        width={screenWidth}
-        height={screenWidth * 0.5}
-        autoPlay={true}
+        style={{ width: screenWidth, height: screenWidth * 0.5 }}
+        autoplay
         data={data}
-        scrollAnimationDuration={1000}
-        autoPlayInterval={3000}
+        animation={{ type: "timing", duration: 1000 }}
+        autoplayInterval={3000}
         renderItem={({ item }) => (
           <TouchableOpacity
             activeOpacity={item.url ? 0.7 : 1}
