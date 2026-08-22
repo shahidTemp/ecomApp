@@ -9,7 +9,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
 
-const ProductCardSkeleton = () => {
+const ProductCardSkeleton = ({ style }) => {
   const { width } = useWindowDimensions();
   const shimmerX = useSharedValue(-width);
 
@@ -29,7 +29,7 @@ const ProductCardSkeleton = () => {
   }));
 
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, style]}>
       <View style={styles.imagePlaceholder} />
 
       <View style={styles.details}>

@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useTheme } from "@/lib/theme";
 
-const ProductCard = ({ item, onPress }) => {
+const ProductCard = ({ item, onPress, style }) => {
   const { theme } = useTheme();
   const product = item ?? {};
   const name = product.info?.name || "Unnamed product";
@@ -20,7 +20,7 @@ const ProductCard = ({ item, onPress }) => {
       accessibilityRole={onPress ? "button" : undefined}
       disabled={!onPress}
       onPress={onPress ? () => onPress(item) : undefined}
-      style={({ pressed }) => [styles.card, pressed && styles.pressed]}
+      style={({ pressed }) => [styles.card, style, pressed && styles.pressed]}
     >
       <View style={styles.imageContainer}>
         {image ? (

@@ -1,10 +1,11 @@
-import { View } from "react-native";
+import { ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import SearchTrigger from "@/components/common/searchTrigger";
 import ModernCarousel from "@/components/home/carousel";
 import Categories from "@/components/home/categories";
+import Sections from "@/components/home/sections";
 import { useTheme } from "@/lib/theme";
 
 const Index = () => {
@@ -20,11 +21,15 @@ const Index = () => {
         className="flex-1"
       >
         <StatusBar backgroundColor={theme.bgcolor} style="light" />
-        <View className="px-3 gap-1">
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 12, paddingBottom: 24, gap: 4 }}
+        >
           <SearchTrigger />
           <ModernCarousel />
           <Categories />
-        </View>
+          <Sections />
+        </ScrollView>
       </LinearGradient>
     </SafeAreaView>
   );
