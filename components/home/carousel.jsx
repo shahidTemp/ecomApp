@@ -1,96 +1,45 @@
-import React from "react";
-import {
-  Dimensions,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Image,
-} from "react-native";
+import { Dimensions, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Carousel } from "react-native-reanimated-carousel";
 import { useRouter } from "expo-router";
-
-import cimg1 from "@/assets/images/cimg1.jpg";
-import cimg2 from "@/assets/images/cimg2.jpg";
-import cimg3 from "@/assets/images/cimg3.jpg";
-import cimg4 from "@/assets/images/cimg4.png";
-import cimg5 from "@/assets/images/cimg5.jpg";
-import cimg6 from "@/assets/images/cimg6.png";
+import { useSettings } from "@/lib/theme";
 
 const { width: screenWidth } = Dimensions.get("window");
 
-const data = [
-  {
-    img: cimg1,
-    url: "https://www.example.com",
-  },
-  {
-    img: cimg2,
-    url: "https://www.example.com",
-  },
-  {
-    img: cimg3,
-    url: "",
-  },
-  {
-    img: cimg4,
-    url: "",
-  },
-  {
-    img: cimg5,
-    url: "",
-  },
-  {
-    img: cimg6,
-    url: "",
-  },
-];
-
 const ModernCarousel = () => {
   const router = useRouter();
+  const { settings } = useSettings();
 
-  const handleItemPress = (item) => {
-    if (item.url) {
-      router.replace(item.url);
-    }
-  };
+  const data = (settings?.assets?.banners ?? []).map(({ img, link }) => ({ img, url: link }));
+
+  if (!data.length) return null;
 
   return (
-    <View style={styles.container}>
-      <Carousel
-        loop
-        style={{ width: screenWidth, height: screenWidth * 0.5 }}
-        autoplay
-        data={data}
-        animation={{ type: "timing", duration: 1000 }}
-        autoplayInterval={3000}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            activeOpacity={item.url ? 0.7 : 1}
-            onPress={() => handleItemPress(item)}
-            style={styles.itemContainer}
-            disabled={!item.url}
-          >
-            <Image
-              // source={{ uri: item.image || item.img }}
-              source={item.img}
-              style={styles.image}
-              resizeMode="cover"
-            />
-          </TouchableOpacity>
-        )}
-      />
-    </View>
+    <Carousel
+      loop
+      style={{ width: screenWidth, height: screenWidth * 0.5 }}
+      autoplay
+      data={data}
+      animation={{ type: "timing", duration: 1000 }}
+      autoplayInterval={3000}
+      renderItem={({ item }) => (
+        <TouchableOpacity
+          activeOpacity={item.url ? 0.7 : 1}
+          onPress={() => item.url && router.replace(item.url)}
+          style={styles.itemContainer}
+          disabled={!item.url}
+        >
+          <Image source={{ uri: item.img }} style={styles.image} resizeMode="cover" />
+        </TouchableOpacity>
+      )}
+    />
   );
 };
 
 const styles = StyleSheet.create({
-  container: {},
   itemContainer: {
     flex: 1,
     borderRadius: 12,
     overflow: "hidden",
-    marginHorizontal: 12,
-    marginVertical: 8,
     elevation: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
