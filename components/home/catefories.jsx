@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   categoryName: {
     color: "#1e293b",
     fontSize: 10,
-    fontWeight: "700",
+    fontWeight: "500",
     lineHeight: 12,
     marginTop: 5,
     textAlign: "center",
