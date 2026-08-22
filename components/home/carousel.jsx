@@ -20,7 +20,7 @@ const ModernCarousel = () => {
       loop
       autoplay
       data={banners}
-      style={{ width: carouselWidth, height: carouselWidth * 0.5 }}
+      style={{ width: carouselWidth, height: carouselWidth * (7 / 20) }}
       animation={{ type: "timing", duration: 1000 }}
       autoplayInterval={3000}
       keyExtractor={(item) => item.img}
